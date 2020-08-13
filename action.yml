@@ -1,19 +1,22 @@
 inputs:
   appleAPIKey:
-    description: 'The App Store Connect API key, if using JWT authentication to notarize your app'
+    description: 'The App Store Connect API key, if using JWT authentication to notarize your app.'
     required: false
   appleAPIIssuer:
     description: 'The App Store Connect Issuer ID. Required if appleAPIKey is set.'
     required: false
   appleID:
-    description: 'The username for your Apple Developer account'
+    description: 'The username for your Apple Developer account.'
     required: false
   appleIDPassword:
-    description: 'The app-specific password for your Apple Developer account'
+    description: 'The app-specific password for your Apple Developer account.'
     required: false
   macos-cert-importer:
-    description: 'Path to script used to import the macOS certificate'
-    default: 'echo "No macOS certificate importer script specified, skipping"'
+    description: 'Path to script used to import the macOS P12 certificate used to sign the app.'
+    default: '$GITHUB_ACTIONS_PATH/scripts/import-macos-cert.sh'
+    required: false
+  macos-cert-p12:
+    description: 'The base64-encoded contents of the macOS P12 certificate used to sign the app. Used by the default `macos-cert-importer` script.'
     required: false
   target-platform:
     description: 'The target platform for the bundled Electron app.'
@@ -25,6 +28,8 @@ runs:
     - name: Set up macOS signing certificate
       shell: bash
       run: ${{ inputs.macos-cert-importer }}
+      env:
+        MACOS_CERT_P12: ${{ inputs.macOS-cert-p12 }}
     - name: Install
       shell: bash
       run: yarn
