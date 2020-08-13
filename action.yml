@@ -10,9 +10,10 @@ runs:
   using: composite
   steps:
     - name: Set up macOS signing certificate
-      if: runner.os == 'macOS'
+      shell: bash
       run: ${{ inputs.macos-cert-importer }}
     - name: Install
+      shell: bash
       run: yarn
     - name: Bundle app
       shell: bash
