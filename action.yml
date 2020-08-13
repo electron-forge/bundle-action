@@ -1,0 +1,24 @@
+inputs:
+  macos-cert-importer:
+    description: 'Path to script used to import the macOS certificate'
+    default: 'echo "No macOS certificate importer script specified, skipping"'
+  target-platform:
+    description: 'The target platform for the bundled Electron app.'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up macOS signing certificate
+      if: runner.os == 'macOS'
+      run: ${{ inputs.macos-cert-importer }}
+    - name: Install
+      run: yarn
+    - name: Bundle app
+      shell: bash
+      run: yarn package --platform ${{ inputs.target-platform }}
+      env:
+        APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
+        APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
