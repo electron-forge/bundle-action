@@ -1,7 +1,20 @@
 inputs:
+  appleAPIKey:
+    description: 'The App Store Connect API key, if using JWT authentication to notarize your app'
+    required: false
+  appleAPIIssuer:
+    description: 'The App Store Connect Issuer ID. Required if appleAPIKey is set.'
+    required: false
+  appleID:
+    description: 'The username for your Apple Developer account'
+    required: false
+  appleIDPassword:
+    description: 'The app-specific password for your Apple Developer account'
+    required: false
   macos-cert-importer:
     description: 'Path to script used to import the macOS certificate'
     default: 'echo "No macOS certificate importer script specified, skipping"'
+    required: false
   target-platform:
     description: 'The target platform for the bundled Electron app.'
     required: true
@@ -19,7 +32,7 @@ runs:
       shell: bash
       run: yarn package --platform ${{ inputs.target-platform }}
       env:
-        APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
-        APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-        APPLE_ID: ${{ secrets.APPLE_ID }}
-        APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+        APPLE_API_KEY: ${{ inputs.appleAPIKey }}
+        APPLE_API_ISSUER: ${{ inputs.appleAPIIssuer }}
+        APPLE_ID: ${{ inputs.appleID }}
+        APPLE_ID_PASSWORD: ${{ inputs.appleIDPassword }}
