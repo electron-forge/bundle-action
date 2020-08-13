@@ -1,2 +1,2 @@
-# build-action
-GitHub Action for building Electron applications with Electron Forge
+# bundle-action
+GitHub Action for bundling Electron applications with Electron Forge.
