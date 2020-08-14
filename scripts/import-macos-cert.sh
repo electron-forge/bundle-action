@@ -3,6 +3,7 @@
 # Required environment variables:
 #
 # * `MACOS_CERT_P12`: base64-encoded `.p12` certificate
+# * `MACOS_CERT_PASSWORD`: password to unlock the certificate so it can be imported
 #
 
 KEY_CHAIN=build.keychain

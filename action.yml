@@ -18,6 +18,9 @@ inputs:
   macos-cert-p12:
     description: 'The base64-encoded contents of the macOS P12 certificate used to sign the app. Used by the default `macos-cert-importer` script.'
     required: false
+  macos-cert-password:
+    description: 'The password used to unlock the signing certificate so that it can be imported into the keychain.'
+    required: false
   target-platform:
     description: 'The target platform for the bundled Electron app.'
     required: true
