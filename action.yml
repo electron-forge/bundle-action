@@ -38,10 +38,10 @@ runs:
         MACOS_CERT_P12: ${{ inputs.macOS-cert-p12 }}
     - name: Install
       shell: bash
-      run: ${{ github.action_path }}/scripts/install.sh
+      run: $GITHUB_ACTION_PATH/scripts/install.sh
     - name: Bundle app
       shell: bash
-      run: ${{ github.action_path }}/scripts/package.sh
+      run: $GITHUB_ACTION_PATH/scripts/package.sh
       env:
         APPLE_API_KEY: ${{ inputs.appleAPIKey }}
         APPLE_API_ISSUER: ${{ inputs.appleAPIIssuer }}
