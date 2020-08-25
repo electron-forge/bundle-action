@@ -6,6 +6,8 @@
 #   which package manager was used on the app via `yarn-or-npm` (which is used by Electron Forge).
 #
 
+set -e
+
 if [[ "$NODE_INSTALLER" = "npm" ]]; then
   npm run package -- --platform "$TARGET_PLATFORM"
 elif [[ "$NODE_INSTALLER" = "yarn" ]]; then

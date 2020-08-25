@@ -3,13 +3,16 @@
 # Environment variables:
 #
 # * `NODE_INSTALLER`: Which Node.js package manager to use (`yarn` or `npm`). Defaults to detecting
-#   which package manager was used on the app via `yarn-or-npm` (which is used by Electron Forge).
+#   which package manager was used on the app.
 #
 
-if [[ "$NODE_INSTALLER" = "npm" ]]; then
-  npm install
-elif [[ "$NODE_INSTALLER" = "yarn" ]]; then
+set -e
+
+if [[ "$NODE_INSTALLER" = "yarn" || ( -z "$NODE_INSTALLER" && -f "yarn.lock" ) ]]; then
   yarn
+if [[ "$NODE_INSTALLER" = "npm" || -f "package-lock.json" ]]; then
+  npm install
 else
-  $(npm bin)/yarn-or-npm install
+  echo "ERROR: unknown NODE_INSTALLER ($NODE_INSTALLER)" 1>&2
+  exit 1
 fi
