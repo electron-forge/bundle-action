@@ -10,7 +10,7 @@ set -e
 
 if [[ "$NODE_INSTALLER" = "yarn" || ( -z "$NODE_INSTALLER" && -f "yarn.lock" ) ]]; then
   yarn
-if [[ "$NODE_INSTALLER" = "npm" || -f "package-lock.json" ]]; then
+elif [[ "$NODE_INSTALLER" = "npm" || -f "package-lock.json" ]]; then
   npm install
 else
   echo "ERROR: unknown NODE_INSTALLER ($NODE_INSTALLER)" 1>&2
