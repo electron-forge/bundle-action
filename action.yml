@@ -21,6 +21,9 @@ inputs:
   macos-cert-password:
     description: 'The password used to unlock the signing certificate so that it can be imported into the keychain.'
     required: false
+  node-installer:
+    description: 'Which Node.js package manager to use (`yarn` or `npm`). Defaults to detecting which package manager was used on the app via `yarn-or-npm` (which is used by Electron Forge).'
+    required: false
   target-platform:
     description: 'The target platform for the bundled Electron app.'
     required: true
@@ -35,12 +38,14 @@ runs:
         MACOS_CERT_P12: ${{ inputs.macOS-cert-p12 }}
     - name: Install
       shell: bash
-      run: yarn
+      run: $GITHUB_ACTION_PATH/scripts/install.sh
     - name: Bundle app
       shell: bash
-      run: yarn package --platform ${{ inputs.target-platform }}
+      run: $GITHUB_ACTION_PATH/scripts/package.sh
       env:
         APPLE_API_KEY: ${{ inputs.appleAPIKey }}
         APPLE_API_ISSUER: ${{ inputs.appleAPIIssuer }}
         APPLE_ID: ${{ inputs.appleID }}
         APPLE_ID_PASSWORD: ${{ inputs.appleIDPassword }}
+        NODE_INSTALLER: ${{ inputs.node-installer }}
+        TARGET_PLATFORM: ${{ inputs.target-platform }}
