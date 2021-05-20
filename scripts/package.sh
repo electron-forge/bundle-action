@@ -8,10 +8,19 @@
 
 set -e
 
+args=(
+  --platform
+  "$TARGET_PLATFORM"
+)
+
+if [[ -n "$TARGET_ARCH" ]]; then
+  args=( ${args[@]} --arch "$TARGET_ARCH" )
+fi
+
 if [[ "$NODE_INSTALLER" = "npm" ]]; then
-  npm run package -- --platform "$TARGET_PLATFORM"
+  npm run package -- "${args[@]}"
 elif [[ "$NODE_INSTALLER" = "yarn" ]]; then
-  yarn package --platform "$TARGET_PLATFORM"
+  yarn package "${args[@]}"
 else
-  $(npm bin)/yarn-or-npm run package -- --platform "$TARGET_PLATFORM"
+  $(npm bin)/yarn-or-npm run package -- "${args[@]}"
 fi

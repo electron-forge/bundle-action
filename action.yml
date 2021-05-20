@@ -24,6 +24,9 @@ inputs:
   node-installer:
     description: 'Which Node.js package manager to use (`yarn` or `npm`). Defaults to detecting which package manager was used on the app via `yarn-or-npm` (which is used by Electron Forge).'
     required: false
+  target-arch:
+    description: 'The target architecture for the bundled Electron app. Defaults to the architecture of the host runner.'
+    required: false
   target-platform:
     description: 'The target platform for the bundled Electron app.'
     required: true
@@ -48,4 +51,5 @@ runs:
         APPLE_ID: ${{ inputs.appleID }}
         APPLE_ID_PASSWORD: ${{ inputs.appleIDPassword }}
         NODE_INSTALLER: ${{ inputs.node-installer }}
+        TARGET_ARCH: ${{ inputs.target-arch }}
         TARGET_PLATFORM: ${{ inputs.target-platform }}
