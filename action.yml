@@ -13,7 +13,7 @@ inputs:
     required: false
   macos-cert-importer:
     description: 'Path to script used to import the macOS P12 certificate used to sign the app.'
-    default: '$GITHUB_ACTIONS_PATH/scripts/import-macos-cert.sh'
+    default: '$GITHUB_ACTION_PATH/scripts/import-macos-cert.sh'
     required: false
   macos-cert-p12:
     description: 'The base64-encoded contents of the macOS P12 certificate used to sign the app. Used by the default `macos-cert-importer` script.'
