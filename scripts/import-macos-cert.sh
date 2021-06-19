@@ -10,6 +10,15 @@ if test "$(uname -s)" = "Darwin"; then
   KEY_CHAIN=build.keychain
   KEY_CHAIN_USER=actions
   MACOS_CERT_P12_FILE=certificate.p12
+  
+  if [[ -z $MACOS_CERT_P12 ]]; then
+    echo '********' >&2
+    echo 'WARNING: No macOS certificate found in repository secrets.' >&2
+    echo 'WARNING: THIS WILL CAUSE MACOS SIGNING TO FAIL.' >&2
+    echo 'Exiting.' >&2
+    echo '********' >&2
+    exit 0
+  fi
 
   # Recreate the certificate from the secure environment variable
   echo $MACOS_CERT_P12 | base64 --decode > $MACOS_CERT_P12_FILE
@@ -29,4 +38,8 @@ if test "$(uname -s)" = "Darwin"; then
 
   # Remove cert created from this script
   rm "$MACOS_CERT_P12_FILE"
+  
+  echo '********'
+  echo 'Certificate imported and ready for signing!'
+  echo '********'
 fi
