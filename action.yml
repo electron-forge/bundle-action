@@ -38,7 +38,8 @@ runs:
       shell: bash
       run: ${{ inputs.macos-cert-importer }}
       env:
-        MACOS_CERT_P12: ${{ inputs.macOS-cert-p12 }}
+        MACOS_CERT_PASSWORD: ${{ inputs.macos-cert-password }}
+        MACOS_CERT_P12: ${{ inputs.macos-cert-p12 }}
     - name: Install
       shell: bash
       run: $GITHUB_ACTION_PATH/scripts/install.sh
