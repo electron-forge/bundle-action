@@ -36,8 +36,9 @@ runs:
   steps:
     - name: Set up macOS signing certificate
       shell: bash
-      run: ${{ inputs.macos-cert-importer }}
+      run: "$MACOS_CERT_IMPORTER"
       env:
+        MACOS_CERT_IMPORTER: ${{ inputs.macos-cert-importer }}
         MACOS_CERT_PASSWORD: ${{ inputs.macos-cert-password }}
         MACOS_CERT_P12: ${{ inputs.macos-cert-p12 }}
     - name: Install
